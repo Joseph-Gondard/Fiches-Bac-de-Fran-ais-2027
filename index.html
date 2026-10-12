@@ -210,5 +210,16 @@
       window.print();
     });
   </script>
+  
+<div style="max-width:700px;margin:20px auto;padding:20px;border:1px solid #d9deea;border-radius:14px;font-family:Arial,sans-serif;background:#fff;">
+  <h2 style="margin-top:0;">🤖 Créer une fiche avec ChatGPT</h2>
+  <p>Colle ton cours ou ton analyse linéaire ci-dessous.</p>
+  <textarea id="coursIA" placeholder="Colle ici ton cours de français..." style="width:100%;min-height:140px;padding:12px;border:1px solid #ccd2df;border-radius:8px;font:inherit;"></textarea>
+  <p>
+    <button type="button" onclick="if(!document.getElementById('coursIA').value.trim()){alert('Colle d’abord ton cours !');return;}const p='Tu es un professeur expert du bac français en Première. À partir du cours fourni, crée une fiche de révision claire, structurée, fidèle au cours et facile à imprimer. Conserve les informations importantes, les citations et les procédés littéraires. N’invente aucune citation ni information. Signale ce qui manque ou est incertain. Utilise des titres, des listes et une mise en page concise. Voici mon cours :\n\n'+document.getElementById('coursIA').value;window.open('https://chatgpt.com/?q='+encodeURIComponent(p),'_blank');" style="background:#2458a6;color:white;border:0;border-radius:8px;padding:12px 18px;cursor:pointer;font-weight:bold;">Générer ma fiche avec ChatGPT ↗</button>
+  </p>
+  <p style="font-size:13px;color:#596579;">ChatGPT s’ouvrira dans un nouvel onglet. Vérifie la fiche obtenue avant de l’imprimer.</p>
+</div>
+
 </body>
 </html>

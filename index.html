@@ -221,5 +221,90 @@
   <p style="font-size:13px;color:#596579;">ChatGPT s’ouvrira dans un nouvel onglet. Vérifie la fiche obtenue avant de l’imprimer.</p>
 </div>
 
+<section id="photos-cours" style="max-width:700px;margin:24px auto;padding:20px;background:white;border:1px solid #d9deea;border-radius:14px;font-family:Arial,sans-serif;color:#202b3c;">
+  <h2>📸 Importer mes cours</h2>
+  <p>Sélectionne les photos de ton cours de français.</p>
+
+  <label for="photosFrancais">Photos du cours (plusieurs possibles)</label>
+  <input
+    id="photosFrancais"
+    type="file"
+    accept="image/*"
+    multiple
+    style="display:block;margin:14px 0;width:100%;"
+  >
+
+  <div id="apercuPhotos"
+       style="display:flex;flex-wrap:wrap;gap:10px;"></div>
+
+  <label for="methodeFrancais">Ma méthode de fiche</label>
+  <textarea
+    id="methodeFrancais"
+    placeholder="Ex. : conserver les citations exactes, expliquer les procédés, suivre les mouvements du texte..."
+    style="display:block;width:100%;min-height:110px;padding:12px;margin:10px 0;border:1px solid #ccd2df;border-radius:8px;font:inherit;"
+  ></textarea>
+
+  <p id="statutPhotos" aria-live="polite" style="color:#596579;"></p>
+
+  <button
+    id="preparerDemande"
+    type="button"
+    style="background:#2458a6;color:white;border:0;border-radius:8px;padding:12px 18px;font-weight:bold;cursor:pointer;"
+  >
+    Préparer ma demande
+  </button>
+</section>
+
+<script>
+(() => {
+  const entree = document.getElementById("photosFrancais");
+  const apercu = document.getElementById("apercuPhotos");
+  const statut = document.getElementById("statutPhotos");
+
+  entree.addEventListener("change", () => {
+    apercu.replaceChildren();
+
+    const photos = Array.from(entree.files || []);
+
+    photos.forEach((photo) => {
+      if (!photo.type.startsWith("image/")) return;
+
+      const image = document.createElement("img");
+      image.alt = photo.name;
+      image.title = photo.name;
+      image.style.width = "100px";
+      image.style.height = "120px";
+      image.style.objectFit = "contain";
+      image.style.border = "1px solid #ddd";
+      image.style.borderRadius = "6px";
+      image.src = URL.createObjectURL(photo);
+      apercu.appendChild(image);
+    });
+
+    statut.textContent = photos.length
+      ? photos.length + " photo(s) sélectionnée(s)."
+      : "Aucune photo sélectionnée.";
+  });
+
+  document.getElementById("preparerDemande").addEventListener("click", () => {
+    const methode = document.getElementById("methodeFrancais").value.trim();
+    const photos = Array.from(entree.files || []);
+
+    if (!photos.length) {
+      statut.textContent = "Sélectionne d'abord les photos de ton cours.";
+      return;
+    }
+
+    if (!methode) {
+      statut.textContent = "Écris d'abord ta méthode de fiche.";
+      return;
+    }
+
+    statut.textContent =
+      "Importation réussie dans le navigateur. Les photos ne sont pas encore envoyées à l'IA : cette étape reste à connecter.";
+  });
+})();
+</script>
+
 </body>
 </html>
